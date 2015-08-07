@@ -87,7 +87,7 @@ You must edit the Locations array, here is an example:
 
 ##Feature list and status.
 
-Check out [Features.txt](https://www.github.com/kyenos/dropstash/Features.txt) for details on the status of individual feature. This will be updated when things change when future features are added to the utility
+Check out [Features.txt]((https://github.com/kyenos/dropstash/blob/master/Features.txt) for details on the status of individual feature. This will be updated when things change when future features are added to the utility
 
 Good luck, have fun!
 
