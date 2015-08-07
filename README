@@ -20,8 +20,7 @@ Additionally, since dropstash is being run as a different user, not just anybody
 
 So, dropstash does solve a real world dilemma, in an efficient way but the real question is, will any body use it (or even really need it)?
 
-************
-Build and dependencies:
+##Build and dependencies:
 
 Dropstash currently only works on Linux... not UNI* but Linux. The reason is that the inotify subsystem, as far as I know at the moment, is a Linux kernel feature. If enough people request that it runs on other systems, I'll consider making it more portable 
 
@@ -30,7 +29,7 @@ Dropstash has some external dependencies as well as requires a patched version o
 So how to get started...
 
 go get github.com/kyenos/dropstash
-
+```
 cd $GOPATH/src/github.com/kyenos/dropstash
 
 go generate
@@ -38,17 +37,18 @@ go generate
 go build
 
 ./dropstash [-d] <start, stop, status, reload, list, export, remove>
+```
 
 Optionally, if your $GOPATH/bin is in path for your system; go install will publish it there.
 
-************
-Application and arguments
+##Application and arguments
 
 dropstash consists of a single, statically compiled binary that can be run off the command line. It operates in 1 of 2 modes:
 - deamon;     It's acting as the drop monitor and stash daemon (optionally as a real deamon in the background)
 - management; Where one inspects, removes or exports file from the cache.
 
 Arguments:
+```
  -d                  Run daemon in background (only available with start)
  start               Start in daemon mode
  stop                Stop any given running daemon 
@@ -58,10 +58,10 @@ Arguments:
  export              Export a file from the stash (return it to it's original condition)
  remove              Remove a stash or file from the system. Removing a stash takes all
                      the related files with it.
-                     
+```                     
 On first start, dropstash will create the stash and configuration files in ~/.dropstash. It will then warn you that you haven't supplied anywhere for it to montior so it will exit. Edit the ~/.dropstash/config file it should like something like this:
 
-
+```
  {
     "Locations": [ ],
     "Log_loc": "/home/kyenos/.dropstash/logs",
@@ -70,8 +70,9 @@ On first start, dropstash will create the stash and configuration files in ~/.dr
     "Stash_save_seconds": 10,
     "Config_loc": "/home/kyenos/.dropstash"
 }
-
+```
 You must edit the Locations array, here is an example:
+```
 {
     "Locations": ["/home/kyenos/tmp/m1",
                   "/home/kyenos/tmp",
@@ -82,6 +83,11 @@ You must edit the Locations array, here is an example:
     "Stash_save_seconds": 10,
     "Config_loc": "/home/kyenos/.dropstash"
 }
+```
+
+##Feature list and status.
+
+Check out [Features.txt](https://www.github.com/kyenos/dropstash/Features.txt) for details on the status of individual feature. This will be updated when things change when future features are added to the utility
 
 Good luck, have fun!
 

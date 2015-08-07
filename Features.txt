@@ -3,43 +3,43 @@
 +----------------------------------------------------+-------------+
 | Support 3 modes daemon, report, client             | Complete    |
 +----------------------------------------------------+-------------+
-| Support daemon mode                                | Not started |
+| Support daemon mode                                | Complete    |
 +----------------------------------------------------+-------------+
-| Support monitoring multiple drop directories       | Not started |
+| Support monitoring multiple drop directories       | Complete    |
 +----------------------------------------------------+-------------+
-| Support moving files to the stash                  | Not started |
+| Support moving files to the stash                  | Complete    |
 +----------------------------------------------------+-------------+
-| Support removing files from the stash              | Not started |
+| Support removing files from the stash              | Complete    |
 +----------------------------------------------------+-------------+
-| Support copying a file from the stash to the OS    | Not started |
+| Support copying a file from the stash to the OS    | Complete    |
 +----------------------------------------------------+-------------+
-| Support to display information about the stash     | Not started | 
+| Support to display information about the stash     | Complete    |
 +----------------------------------------------------+-------------+
-| Stash should support multiple names per file       | Not started |
+| Stash should support multiple names per file       | Complete    |
 +----------------------------------------------------+-------------+
-| Stash should have a unique ID per file UUID        | Not started |
+| Stash should have a unique ID per file UUID        | Complete    |
 +----------------------------------------------------+-------------+
-| Support meta data in JSON format for stash         | Not started |
+| Support meta data in JSON format for stash         | Complete    |
 +----------------------------------------------------+-------------+
 | Meta data should include:                          |             |
-| - ID, MD5 hash, size, pickup count, partial count  | Not started |
+| - ID, MD5 hash, size, pickup count, partial count  | Complete    |
 +----------------------------------------------------+-------------+
 | Support config file, should include:               |             |
 | - Log location, stash location, checksum location  |             |
 | - support /etc/dropstash.conf                      |             |
-| - support /etc/.dropstash/config                   | Not started |
+| - support /etc/.dropstash/config                   | Partial     |
 +----------------------------------------------------+-------------+
-| Config file should be in JSON                      | Not started |
+| Config file should be in JSON                      | Complete    |
 +----------------------------------------------------+-------------+
-| Should support incomplete transfer check           | Not started |
+| Should support incomplete transfer check           | Complete    |
 +----------------------------------------------------+-------------+
-| Should support duplicate check and keep only one   | Not started |
+| Should support duplicate check and keep only one   | Complete    |
 +----------------------------------------------------+-------------+
 | Should warn when stash and monitor dirs are on     |             |
 | different partitions                               | Not started |
 +----------------------------------------------------+-------------+
 | Should support logging, log rollover and log       |             |
-| archive / compression                              | Not started |
+| archive / compression                              | Mostly done |
 +----------------------------------------------------+-------------+
-| Should help and version displays                   | Not started |
+| Should help                                        | Complete    |
 +----------------------------------------------------+-------------+
