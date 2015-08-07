@@ -1,0 +1,70 @@
+diff --git a/daemon_posix.go b/daemon_posix.go
+index 259a446..813f018 100644
+--- daemon_posix.go
++++ daemon_posix.go
+@@ -4,8 +4,9 @@ import (
+ 	"encoding/json"
+ 	"fmt"
+ 	"os"
+-	"path/filepath"
+ 	"syscall"
++
++	"github.com/kardianos/osext"
+ )
+
+ // Mark of daemon process - system environment variable _GO_DAEMON=1
+@@ -75,6 +76,45 @@ func (d *Context) Reborn() (child *os.Process, err error) {
+ 	return
+ }
+
++//special case for foreground initialization
++func (d *Context) NoBackground() (err error) {
++	if initialized {
++		return os.ErrInvalid
++	}
++	initialized = true
++
++	_, err = d.Search()
++	if err == nil {
++		err = fmt.Errorf("resource temporarily unavailable")
++		return
++	}
++	d.prepareEnv()
++
++	if d.pidFile != nil {
++		d.pidFile.Remove()
++	}
++	if len(d.PidFileName) > 0 {
++		fl, er := os.Create(d.PidFileName)
++		if er != nil {
++			err = er
++			return
++		}
++		d.pidFile = NewLockFile(fl)
++		if err = d.pidFile.WritePid(); err != nil {
++			return
++		}
++	}
++
++	if d.Umask != 0 {
++		syscall.Umask(int(d.Umask))
++	}
++	if len(d.Chroot) > 0 {
++		err = syscall.Chroot(d.Chroot)
++	}
++
++	return
++}
++
+ // Search search daemons process by given in context pid file name.
+ // If success returns pointer on daemons os.Process structure,
+ // else returns error. Returns nil if filename is empty.
+@@ -180,7 +220,7 @@ func (d *Context) closeFiles() (err error) {
+ }
+
+ func (d *Context) prepareEnv() (err error) {
+-	if d.abspath, err = filepath.Abs(os.Args[0]); err != nil {
++	if d.abspath, err = osext.Executable(); err != nil {
+ 		return
+ 	}
+

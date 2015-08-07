@@ -1,0 +1,45 @@
++----------------------------------------------------+-------------+
+| Requirement                                        | Status      |
++----------------------------------------------------+-------------+
+| Support 3 modes daemon, report, client             | Complete    |
++----------------------------------------------------+-------------+
+| Support daemon mode                                | Not started |
++----------------------------------------------------+-------------+
+| Support monitoring multiple drop directories       | Not started |
++----------------------------------------------------+-------------+
+| Support moving files to the stash                  | Not started |
++----------------------------------------------------+-------------+
+| Support removing files from the stash              | Not started |
++----------------------------------------------------+-------------+
+| Support copying a file from the stash to the OS    | Not started |
++----------------------------------------------------+-------------+
+| Support to display information about the stash     | Not started | 
++----------------------------------------------------+-------------+
+| Stash should support multiple names per file       | Not started |
++----------------------------------------------------+-------------+
+| Stash should have a unique ID per file UUID        | Not started |
++----------------------------------------------------+-------------+
+| Support meta data in JSON format for stash         | Not started |
++----------------------------------------------------+-------------+
+| Meta data should include:                          |             |
+| - ID, MD5 hash, size, pickup count, partial count  | Not started |
++----------------------------------------------------+-------------+
+| Support config file, should include:               |             |
+| - Log location, stash location, checksum location  |             |
+| - support /etc/dropstash.conf                      |             |
+| - support /etc/.dropstash/config                   | Not started |
++----------------------------------------------------+-------------+
+| Config file should be in JSON                      | Not started |
++----------------------------------------------------+-------------+
+| Should support incomplete transfer check           | Not started |
++----------------------------------------------------+-------------+
+| Should support duplicate check and keep only one   | Not started |
++----------------------------------------------------+-------------+
+| Should warn when stash and monitor dirs are on     |             |
+| different partitions                               | Not started |
++----------------------------------------------------+-------------+
+| Should support logging, log rollover and log       |             |
+| archive / compression                              | Not started |
++----------------------------------------------------+-------------+
+| Should help and version displays                   | Not started |
++----------------------------------------------------+-------------+
