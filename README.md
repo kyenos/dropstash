@@ -59,7 +59,7 @@ Arguments:
  remove              Remove a stash or file from the system. Removing a stash takes all
                      the related files with it.
 ```                     
-On first start, dropstash will create the stash and configuration files in ~/.dropstash. It will then warn you that you haven't supplied anywhere for it to montior so it will exit. Edit the ~/.dropstash/config file it should like something like this:
+On first start, dropstash will create the stash and configuration files in ~/.dropstash. It will then warn you that you haven't supplied anywhere for it to monitor so it will exit. Edit the ~/.dropstash/config file it should like something like this:
 
 ```
  {
@@ -88,6 +88,8 @@ You must edit the Locations array, here is an example:
 ##Feature list and status.
 
 Check out [Features.txt]((https://github.com/kyenos/dropstash/blob/master/Features.txt) for details on the status of individual feature. This will be updated when things change when future features are added to the utility
+
+For feature requests or bugs, please create an issue and I'll try to address it in a timely manor.
 
 Good luck, have fun!
 
