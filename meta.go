@@ -212,14 +212,14 @@ func (self *Meta) OpenStash() {
 				fl, err := os.Open(config.Staging_loc + "/" + curr_op.Id)
 				if err != nil {
 					log.Errorln("Failed to open staging file:", curr_op.Id)
-					break
+					continue
 				}
 				var file Node
 				file.Id = curr_op.Id
 				file.Overwrite = curr_op.Overwrite
 				if fd, err := fl.Stat(); err != nil {
 					log.Errorln("Failed to get stats on staged file:", file.Id)
-					break
+					continue
 				} else {
 					file.Size = fd.Size()
 				}

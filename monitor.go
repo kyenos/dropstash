@@ -9,12 +9,36 @@ package main
  to monitoring a location for new files
 -----------------------------------------------*/
 import (
+	"os"
+	"path"
+	"errors"
 	"code.google.com/p/go-uuid/uuid"
 	log "github.com/Sirupsen/logrus"
 	"golang.org/x/exp/inotify"
-	"os"
-	"path"
 )
+
+/* Simple check for permissions, ensures user is in the
+   correct group. */
+func checkPermissions(location string) (loc_info os.FileInfo, err error){
+
+	defer func() {
+		if err != nil{
+			log.Errorln("Make sure location has:\n\t- File group set umask\n\t- In a group for this user\n\t- Is a directory")
+		}
+	}()
+	loc_info, err = os.Stat(location)
+    if err != nil {return}
+
+	if !loc_info.Mode().IsDir() {
+		err = errors.New("Location mode must be a directory.")
+		return
+	}
+	if loc_info.Mode() &os.ModeSetgid == 0 {
+		err = errors.New(location + "\n\t does not have the correct permissions to be monitored: " + loc_info.Mode().String())
+		return
+	}
+	return
+}
 
 /* This is where we do the actual location monitoring. This
    is started as a concurent go routine, and monitors loc_id
@@ -26,6 +50,12 @@ func monitor(loc_id int, cont chan bool) {
 
 	stop := false
 	location := config.Locations[loc_id]
+	if st, err := checkPermissions(location); err != nil {
+		log.Error(err)
+		return
+	}else{
+		log.Infoln("Permissions check for", location, "passed:", st.Mode())
+	}
 	watcher, err := inotify.NewWatcher()
 	if err != nil {
 		log.Error(err)
@@ -55,7 +85,7 @@ func monitor(loc_id int, cont chan bool) {
 			}
 		case err := <-watcher.Error:
 			log.Error("Monitor error;", err)
-			break
+			continue
 		case stop = <-cont:
 			log.Infoln("Spinning down monitor on ", location)
 			break
