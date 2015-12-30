@@ -97,6 +97,7 @@ func main() {
 	case *signal == "list":
 		meta.LoadStashFile()
 		const layout = "Jan 02 06 15:04:23"
+		/*TODO; this would be a perfect fit for text/templates*/
 		for _, node := range meta.Files {
 			for _, file := range node.Pointers {
 				nm := file.Name
