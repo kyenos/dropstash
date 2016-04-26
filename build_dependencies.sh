@@ -30,7 +30,11 @@ echo "Installing go-daemon"
 go get github.com/sevlyar/go-daemon
 _xt=`pwd`
 pushd "$GOPATH/src/github.com/sevlyar/go-daemon" > /dev/null 2>&1
-patch -p0 < "$_xt/daemon.patch"
+patch -p0 < "$_xt/daemon.patch" >/dev/null 2>&1
+rm daemon_posix.go.orig
+if [ -e "$GOPATH/pkg/linux_amd64/github.com/sevlyar/go-daemon.a" ]; then
+    rm "$GOPATH/pkg/linux_amd64/github.com/sevlyar/go-daemon.a"
+fi
 go install
 popd > /dev/null 2>&1
 
@@ -51,3 +55,4 @@ if [ -e "$GOPATH/src/github.com/google/uuid" ]; then
 fi
 echo "Installing go-uuid"
 go get github.com/google/uuid
+
