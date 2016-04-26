@@ -13,10 +13,11 @@ import (
 	//"encoding/json"
 	"encoding/json"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
 	"os"
 	"os/user"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 /* Config represents the global configuration options available

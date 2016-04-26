@@ -9,31 +9,34 @@ package main
  to monitoring a location for new files
 -----------------------------------------------*/
 import (
+	"errors"
 	"os"
 	"path"
-	"errors"
-	"code.google.com/p/go-uuid/uuid"
+
 	log "github.com/Sirupsen/logrus"
+	"github.com/google/uuid"
 	"golang.org/x/exp/inotify"
 )
 
 /* Simple check for permissions, ensures user is in the
    correct group. */
-func checkPermissions(location string) (loc_info os.FileInfo, err error){
+func checkPermissions(location string) (loc_info os.FileInfo, err error) {
 
 	defer func() {
-		if err != nil{
+		if err != nil {
 			log.Errorln("Make sure location has:\n\t- File group set umask\n\t- In a group for this user\n\t- Is a directory")
 		}
 	}()
 	loc_info, err = os.Stat(location)
-    if err != nil {return}
+	if err != nil {
+		return
+	}
 
 	if !loc_info.Mode().IsDir() {
 		err = errors.New("Location mode must be a directory.")
 		return
 	}
-	if loc_info.Mode() &os.ModeSetgid == 0 {
+	if loc_info.Mode()&os.ModeSetgid == 0 {
 		err = errors.New(location + "\n\t does not have the correct permissions to be monitored: " + loc_info.Mode().String())
 		return
 	}
@@ -53,7 +56,7 @@ func monitor(loc_id int, cont chan bool) {
 	if st, err := checkPermissions(location); err != nil {
 		log.Error(err)
 		return
-	}else{
+	} else {
 		log.Infoln("Permissions check for", location, "passed:", st.Mode())
 	}
 	watcher, err := inotify.NewWatcher()
@@ -68,7 +71,7 @@ func monitor(loc_id int, cont chan bool) {
 	}
 	log.Infoln("Watcher up; monitoring:", location)
 	for !stop {
-		cached_id := uuid.New() //cache a new uuid
+		cached_id := uuid.New().String() //cache a new uuid
 		select {
 		case ev := <-watcher.Event:
 			log.Debugln("monitored directory event:", ev)

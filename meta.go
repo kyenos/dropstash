@@ -12,13 +12,14 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
 	"io"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 /* A node contains the bytes of a file in the stash, a file

@@ -30,7 +30,7 @@ echo "Installing go-daemon"
 go get github.com/sevlyar/go-daemon
 _xt=`pwd`
 pushd "$GOPATH/src/github.com/sevlyar/go-daemon" > /dev/null 2>&1
-patch -p0 < "$_xt/daemon.patch" > /dev/null 2>&1
+patch -p0 < "$_xt/daemon.patch"
 go install
 popd > /dev/null 2>&1
 
@@ -45,5 +45,9 @@ if [ -e "$GOPATH/src/code.google.com/p/go-uuid/uuid" ]; then
     echo "Removing previous installation of go-uuid"
     rm -rf `find $GOPATH |grep go-uuid`
 fi
+if [ -e "$GOPATH/src/github.com/google/uuid" ]; then
+    echo "Removing previous installation of go-uuid"
+    rm -rf `find $GOPATH |grep gooogle\/uuid`
+fi
 echo "Installing go-uuid"
-go get code.google.com/p/go-uuid/uuid
+go get github.com/google/uuid
