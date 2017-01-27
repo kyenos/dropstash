@@ -14,8 +14,8 @@ import (
 	"path"
 
 	log "github.com/Sirupsen/logrus"
+	"github.com/fsnotify/fsnotify"
 	"github.com/google/uuid"
-	"golang.org/x/exp/inotify"
 )
 
 /* Simple check for permissions, ensures user is in the
@@ -59,12 +59,14 @@ func monitor(loc_id int, cont chan bool) {
 	} else {
 		log.Infoln("Permissions check for", location, "passed:", st.Mode())
 	}
-	watcher, err := inotify.NewWatcher()
+	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Error(err)
 		return
 	}
-	err = watcher.Watch(location)
+	defer watcher.Close()
+
+	err = watcher.Add(location)
 	if err != nil {
 		log.Error(err)
 		return
@@ -73,9 +75,9 @@ func monitor(loc_id int, cont chan bool) {
 	for !stop {
 		cached_id := uuid.New().String() //cache a new uuid
 		select {
-		case ev := <-watcher.Event:
+		case ev := <-watcher.Events:
 			log.Debugln("monitored directory event:", ev)
-			if ev.Mask == inotify.IN_CLOSE_WRITE {
+			if ev.Op&fsnotify.Write == fsnotify.Write {
 				log.Info("Found; ", path.Base(ev.Name), " Moving to staging")
 				os.Rename(ev.Name, config.Staging_loc+"/"+cached_id)
 				var op Operation
@@ -86,7 +88,7 @@ func monitor(loc_id int, cont chan bool) {
 				op.Overwrite = false //TODO determine if this should be gleamed from the file name
 				meta.stash <- op
 			}
-		case err := <-watcher.Error:
+		case err := <-watcher.Errors:
 			log.Error("Monitor error;", err)
 			continue
 		case stop = <-cont:
