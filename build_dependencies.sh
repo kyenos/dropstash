@@ -30,8 +30,8 @@ echo "Installing go-daemon"
 go get github.com/sevlyar/go-daemon
 _xt=`pwd`
 pushd "$GOPATH/src/github.com/sevlyar/go-daemon" > /dev/null 2>&1
-patch -p0 < "$_xt/daemon.patch" >/dev/null 2>&1
 git checkout v0.1.0
+patch -p0 < "$_xt/daemon.patch" >/dev/null 2>&1
 rm daemon_posix.go.orig
 if [ -e "$GOPATH/pkg/linux_amd64/github.com/sevlyar/go-daemon.a" ]; then
     rm "$GOPATH/pkg/linux_amd64/github.com/sevlyar/go-daemon.a"

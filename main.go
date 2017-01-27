@@ -29,7 +29,7 @@ var (
 	mon_notifier = make(chan bool)
 )
 
-//go:genee /bin/bash -c "./build_dependencies.sh"
+//go:generate /bin/bash -c "./build_dependencies.sh"
 func main() {
 
 	flag.Parse()
