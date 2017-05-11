@@ -1,5 +1,3 @@
-// +build linux
-
 /* Dropstash
 
    Currently only runs on linux! */
