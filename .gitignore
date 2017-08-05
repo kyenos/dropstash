@@ -3,3 +3,4 @@ dropstash.exe
 opcode_string.go
 log
 pid
+glide.lock
